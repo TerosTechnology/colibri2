@@ -15,7 +15,6 @@ jobs:
   # Lint
   #############################################################################
   lint:
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -29,7 +28,6 @@ jobs:
   # Unit test
   ##############################################################################
   unit-test:
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     strategy:
       fail-fast: false
       matrix:
@@ -76,6 +74,12 @@ jobs:
       with:
         name: test-report-html-ubuntu-20.04
         path: test-report-html-ubuntu-20.04
+    # ubuntu 22.04
+    - name: Download artifacts Ubuntu 22.04
+      uses: actions/download-artifact@v3
+      with:
+        name: test-report-html-ubuntu-22.04
+        path: test-report-html-ubuntu-22.04
     # macos-latest
     - name: Download artifacts macos-latest
       uses: actions/download-artifact@v3
@@ -92,6 +96,7 @@ jobs:
       run: |
         mv test-report-html-ubuntu-18.04 docs
         mv test-report-html-ubuntu-20.04 docs
+        mv test-report-html-ubuntu-22.04 docs
         mv test-report-html-macos-latest docs
         mv test-report-html-windows-latest docs
         sed -i 's/commit_hash/'$GITHUB_SHA'/' docs/index.html
