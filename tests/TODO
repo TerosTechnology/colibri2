@@ -1,0 +1,12 @@
+- Diferentes versiones de puertos ANSI y no ANSI.
+- Types elements.
+- Interfaces en entity y package.
+- Doxygen parser debería funcionar con múltiples labels sin que haya un doble \n.
+- State machines.
+- Itroducir un estado de error en hdl_element
+- Modelsim linter falla con path con espacio
+- En documenter revisar todos el svg_path
+- Mensaje de error en el documentenr si falla el parser
+- Documenter section test fsm
+- Documenter section test custom section
+- Verilog template check

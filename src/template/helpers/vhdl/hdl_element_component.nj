@@ -1,0 +1,20 @@
+component {{ name }}
+{{ indent[1] }}generic (
+{% for generic_inst in generic -%}
+{% if loop.last -%}
+{{ indent[2] }}{{generic_inst['info']['name']}} : {{generic_inst['type']}}
+{% else -%}
+{{ indent[2] }}{{generic_inst['info']['name']}} : {{generic_inst['type']}};
+{% endif -%}
+{% endfor -%}
+{{ indent[1] }});
+{{ indent[1] }}port (
+{% for port_inst in port -%}
+{% if loop.last -%}
+{{ indent[2] }}{{port_inst['info']['name']}} : {{port_inst['type']}}
+{% else -%}
+{{ indent[2] }}{{port_inst['info']['name']}} : {{port_inst['type']}};
+{% endif -%}
+{% endfor -%}
+{{ indent[1] }});
+end component;

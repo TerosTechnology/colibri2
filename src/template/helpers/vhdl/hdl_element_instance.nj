@@ -1,0 +1,19 @@
+{{ name }}_inst : {{ name }}
+{{ indent[1] }}generic map (
+{% for generic_inst in generic -%}
+{% if loop.last -%}
+{{ indent[2] }}{{generic_inst['info']['name']}} => {{generic_inst['info']['name']}}
+{% else -%}
+{{ indent[2] }}{{generic_inst['info']['name']}} => {{generic_inst['info']['name']}},
+{% endif -%}
+{% endfor -%}
+{{ indent[1] }})
+{{ indent[1] }}port map (
+{% for port_inst in port -%}
+{% if loop.last -%}
+{{ indent[2] }}{{port_inst['info']['name']}} => {{port_inst['info']['name']}}
+{% else -%}
+{{ indent[2] }}{{port_inst['info']['name']}} => {{port_inst['info']['name']}},
+{% endif -%}
+{% endfor -%}
+{{ indent[1] }});
