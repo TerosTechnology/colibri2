@@ -1,0 +1,33 @@
+{{ header }}
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity {{ name }}_tb is
+end;
+
+architecture bench of {{ name }}_tb is
+{{ indent[1] }}-- Clock period
+{{ indent[1] }}constant clk_period : time := 5 ns;
+{{ indent[1] }}-- Generics
+{% for generic_inst in generic -%}
+{{ indent[1] }}constant {{generic_inst['info']['name']}} : {{generic_inst['type']}};
+{% endfor -%}
+{{ indent[1] }}-- Ports
+{% for port_inst in port -%}
+{{ indent[1] }}signal {{port_inst['info']['name']}} : {{port_inst['type']}};
+{% endfor -%}
+begin
+
+{% include "./hdl_element_instance_vhdl_new.nj" %}
+
+-- {{ indent[1] }}clk_process : process
+-- {{ indent[1] }}begin
+-- {{ indent[2] }}clk <= '1';
+-- {{ indent[2] }}wait for clk_period/2;
+-- {{ indent[2] }}clk <= '0';
+-- {{ indent[2] }}wait for clk_period/2;
+-- {{ indent[1] }}end process clk_process;
+
+end;
