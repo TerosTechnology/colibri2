@@ -2,7 +2,7 @@
     "name": "teroshdl2",
     "author": "Carlos Alberto Ruiz Naranjo <carlosruiznaranjo@gmail.com>, Ismael Perez Rojo <ismaelprojo@gmail.com >",
     "homepage": "https://terostechnology.github.io",
-    "version": "1.0.21",
+    "version": "1.0.22",
     "description": "Typescript example",
     "main": "build/index.js",
     "scripts": {
