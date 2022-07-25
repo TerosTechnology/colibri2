@@ -12,6 +12,17 @@ on:
 
 jobs:
   #############################################################################
+  # Check merge
+  #############################################################################
+  merge_check:
+  runs-on: ubuntu-latest
+  if: github.ref == 'refs/heads/main'
+  steps:
+    -  name: Check if the pull request is mergeable to master
+        run: |
+             if [[ "$GITHUB_HEAD_REF" == 'dev' ]]; then exit 0; else exit 1; fi;
+
+  #############################################################################
   # Lint
   #############################################################################
   lint:
