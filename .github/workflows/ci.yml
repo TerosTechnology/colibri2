@@ -12,17 +12,6 @@ on:
 
 jobs:
   #############################################################################
-  # Check merge
-  #############################################################################
-  merge_check:
-  runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/main'
-  steps:
-    -  name: Check if the pull request is mergeable to master
-        run: |
-             if [[ "$GITHUB_HEAD_REF" == 'dev' ]]; then exit 0; else exit 1; fi;
-
-  #############################################################################
   # Lint
   #############################################################################
   lint:
@@ -131,6 +120,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 12
+      - name: npm install
+        run: |
+          npm install
       - name: Publish NPM package
         id: publish
         uses: JS-DevTools/npm-publish@v1
