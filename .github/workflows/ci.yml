@@ -12,6 +12,7 @@ on:
 env:
   ACTION_CHECKOUT: actions/checkout@v3
   ACTION_UPLOAD_ARTIFACT: actions/upload-artifact@v3
+  ACTION_DOWNLOAD_ARTIFACT: actions/download-artifact@v3
 
 jobs:
   #############################################################################
@@ -21,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: ${ACTION_CHECKOUT}
+      uses: ${{ACTION_CHECKOUT}}
     - name: Install modules
       run: npm install
     - name: Run ESLint
@@ -44,13 +45,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
-      uses: ${ACTION_CHECKOUT}
+      uses: ${{ACTION_CHECKOUT}}
     - name: Install modules
       run: npm install
     - name: Run unit tests
       run: npm test
     - name: Save HTML report artifact
-      uses: ${ACTION_UPLOAD_ARTIFACT}
+      uses: ${{ACTION_UPLOAD_ARTIFACT}}
       if: always()
       with:
         name: test-report-html-${{ matrix.os }}
@@ -62,36 +63,36 @@ jobs:
     needs: [unit-test]
     steps:
     - name: Checkout
-      uses: ${ACTION_CHECKOUT}
+      uses: ${{ACTION_CHECKOUT}}
     - name: Install modules
       run: npm install
     # ubuntu 18.04
     - name: Download artifacts Ubuntu 18.04
-      uses: actions/download-artifact@v3
+      uses: ${{ACTION_DOWNLOAD_ARTIFACT}}
       with:
         name: test-report-html-ubuntu-18.04
         path: test-report-html-ubuntu-18.04
     # ubuntu 20.04
     - name: Download artifacts Ubuntu 20.04
-      uses: actions/download-artifact@v3
+      uses: ${{ACTION_DOWNLOAD_ARTIFACT}}
       with:
         name: test-report-html-ubuntu-20.04
         path: test-report-html-ubuntu-20.04
     # ubuntu 22.04
     - name: Download artifacts Ubuntu 22.04
-      uses: actions/download-artifact@v3
+      uses: ${{ACTION_DOWNLOAD_ARTIFACT}}
       with:
         name: test-report-html-ubuntu-22.04
         path: test-report-html-ubuntu-22.04
     # macos-latest
     - name: Download artifacts macos-latest
-      uses: actions/download-artifact@v3
+      uses: ${{ACTION_DOWNLOAD_ARTIFACT}}
       with:
         name: test-report-html-macos-latest
         path: test-report-html-macos-latest
     # windows-latest
     - name: Download artifacts windows-latest
-      uses: actions/download-artifact@v3
+      uses: ${{ACTION_DOWNLOAD_ARTIFACT}}
       with:
         name: test-report-html-windows-latest
         path: test-report-html-windows-latest
@@ -121,7 +122,7 @@ jobs:
         run: |
           npx typedoc
       - name: Save documentation
-        uses: ${ACTION_UPLOAD_ARTIFACT}
+        uses: ${{ACTION_UPLOAD_ARTIFACT}}
         with:
           name: api-doc
           path: out_docs
@@ -135,7 +136,7 @@ jobs:
     needs: [unit-test]
     steps:
       - name: Checkout
-        uses: ${ACTION_CHECKOUT}
+        uses: ${{ACTION_CHECKOUT}}
       - name: Set node enviroment
         uses: actions/setup-node@v3
         with:
