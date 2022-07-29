@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with colibri2.  If not, see <https://www.gnu.org/licenses/>.
 
+/** Template name */
 export enum TEMPLATE_NAME {
     COCOTB = 'cocotb',
     // VERILATOR = 'verilator',

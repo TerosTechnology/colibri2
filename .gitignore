@@ -3,3 +3,4 @@ lib
 out
 mochawesome-report
 *.xml
+out_docs

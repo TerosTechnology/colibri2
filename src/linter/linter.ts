@@ -26,10 +26,14 @@ import { Modelsim } from "./modelsim";
 import { Verible } from "./verible";
 import * as common from "./common";
 
+/** Linter */
 export class Linter {
     // private linter_inst: Ghdl | Icarus | Modelsim | Verilator | Xvlog | Xvhdl | Verible;
     private linter_inst: any;
 
+    /**
+     * @param  {common.LINTER_NAME} linter_name Linter name
+     */
     constructor(linter_name: common.LINTER_NAME) {
         if (linter_name === common.LINTER_NAME.GHDL) {
             this.linter_inst = new Ghdl();
@@ -68,11 +72,21 @@ export class Linter {
         return errors;
     }
 
+    /**
+     * Lint a file from path
+     * @param  {string} file File path to lint
+     * @param  {common.l_options} options Linter options
+     */
     async lint_from_file(file: string, options: common.l_options) {
         const errors = await this.linter_inst.lint_from_file(file, options);
         return errors;
     }
 
+    /**
+     * Lint a file from the code
+     * @param  {string} code Code to lint
+     * @param  {common.l_options} options Linter options
+     */
     async lint_from_code(code: string, options: common.l_options) {
         const errors = await this.linter_inst.lint_from_code(code, options);
         return errors;

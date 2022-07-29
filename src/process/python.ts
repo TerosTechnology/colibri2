@@ -21,17 +21,23 @@ import { get_os } from "./utils";
 import * as common from "./common";
 import { join } from "path";
 
+/** Python3 configuration options */
 export type python_options = {
     path: string;
 }
 
+/** Result of a Python3 execution */
 export type python_result = {
     python_path: string;
     stdout: string;
     stderr: string;
     successful: boolean;
 }
-
+/**
+ * Get the Python3 path
+ * @param  {python_options} opt Python3 configuration options
+ * @returns Promise
+ */
 export async function get_python_path(opt: python_options): Promise<python_result> {
     let binary: string[] = [];
     const os_system = get_os();
@@ -46,6 +52,11 @@ export async function get_python_path(opt: python_options): Promise<python_resul
     return result;
 }
 
+/**
+ * Search the Python3 path from a list of candidates
+ * @param  {string[]} binary List of Python path candidates
+ * @returns Promise -> Python3 path result
+ */
 export async function find_python3_in_list(binary: string[]): Promise<python_result> {
     const p_result: python_result = {
         python_path: "",
@@ -65,6 +76,11 @@ export async function find_python3_in_list(binary: string[]): Promise<python_res
     return p_result;
 }
 
+/**
+ * Check if a Python3 path is correct
+ * @param  {python_options} opt Python3 options
+ * @returns Promise
+ */
 export async function check_python3_path(opt: python_options): Promise<common.p_result> {
     const cmd = `${opt.path} -c "import sys; check_version = sys.version_info > \
         (3,0); exit(0) if check_version == True else exit(-1)"`;
@@ -73,6 +89,10 @@ export async function check_python3_path(opt: python_options): Promise<common.p_
     return result;
 }
 
+/**
+ * Get the complete Python3 path from a Python executable
+ * @param  {string} python_path Python executable path
+ */
 async function get_complete_python_path(python_path: string) {
     const cmd = `${python_path} -c "import sys; print(sys.executable)"`;
     const p = new Process();
@@ -80,6 +100,12 @@ async function get_complete_python_path(python_path: string) {
     return result.stdout;
 }
 
+/**
+ * Check if a list of Python3 package are installed
+ * @param  {string} python_path Python3 path
+ * @param  {string[]} package_name_list List of packages
+ * @returns Promise -> true if they are installed, false if not
+ */
 export async function check_python_package_list(python_path: string, package_name_list: string[]): Promise<boolean> {
     for (const package_name of package_name_list) {
         const result = await check_python_package(python_path, package_name);
@@ -90,6 +116,12 @@ export async function check_python_package_list(python_path: string, package_nam
     return true;
 }
 
+/**
+ * Check if a Python3 package is installed
+ * @param  {string} python_path Python3 path
+ * @param  {string} package_name Package name
+ * @returns Promise -> true if they are installed, false if not
+ */
 export async function check_python_package(python_path: string, package_name: string): Promise<boolean> {
     const cmd = `${python_path} -c "import ${package_name}; exit(0)"`;
     const p = new Process();
@@ -97,6 +129,12 @@ export async function check_python_package(python_path: string, package_name: st
     return result.successful;
 }
 
+/**
+ * Execute a Python3 script from a path
+ * @param  {string} python_path Python executable path
+ * @param  {string} python_script_path Python script to execute
+ * @param  {string} args Arguments for the script
+ */
 export async function exec_python_script(python_path: string, python_script_path: string, args: string) {
     const opt: python_options = {
         path: python_path

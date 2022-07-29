@@ -44,9 +44,4 @@ export class Process {
         const opt_ins = (typeof opt === 'undefined') ? this.DEFAULT_OPT : opt;
         return this.p?.exec(command, opt_ins);
     }
-
-
-
-
-
 }

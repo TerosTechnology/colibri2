@@ -9,6 +9,9 @@ on:
   pull_request:
   # schedule:
   #   - cron:  '0 0 * * *'
+env:
+  ACTION_CHECKOUT: actions/checkout@v3
+  ACTION_UPLOAD_ARTIFACT: actions/upload-artifact@v3
 
 jobs:
   #############################################################################
@@ -18,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: ${ACTION_CHECKOUT}
     - name: Install modules
       run: npm install
     - name: Run ESLint
@@ -41,13 +44,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: ${ACTION_CHECKOUT}
     - name: Install modules
       run: npm install
     - name: Run unit tests
       run: npm test
     - name: Save HTML report artifact
-      uses: actions/upload-artifact@v3
+      uses: ${ACTION_UPLOAD_ARTIFACT}
       if: always()
       with:
         name: test-report-html-${{ matrix.os }}
@@ -59,7 +62,7 @@ jobs:
     needs: [unit-test]
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: ${ACTION_CHECKOUT}
     - name: Install modules
       run: npm install
     # ubuntu 18.04
@@ -107,7 +110,24 @@ jobs:
         folder: docs
 
   ##############################################################################
-  # Publish
+  # Documentation
+  ##############################################################################
+  generate-api-doc:
+    if: always()
+    runs-on: ubuntu-20.04
+    needs: [unit-test]
+    steps:
+      - name: Generate doc
+        run: |
+          npx typedoc
+      - name: Save documentation
+        uses: ${ACTION_UPLOAD_ARTIFACT}
+        with:
+          name: api-doc
+          path: out_docs
+
+  ##############################################################################
+  # Publish package
   ##############################################################################
   publish-release:
     if: github.ref == 'refs/heads/main'
@@ -115,7 +135,7 @@ jobs:
     needs: [unit-test]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: ${ACTION_CHECKOUT}
       - name: Set node enviroment
         uses: actions/setup-node@v3
         with:

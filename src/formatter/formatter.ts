@@ -23,9 +23,15 @@ import { Istyle } from "./istyle";
 import { S3sv } from "./s3sv";
 import { Verible } from "./verible";
 
+/**
+ * Formatter
+ */
 export class Formatter {
     private formatter_inst: Standalone_vhdl | Istyle | S3sv | Verible;
 
+    /**
+     * @param  {common.FORMATTER_NAME} formatter_name Formatter name
+     */
     constructor(formatter_name: common.FORMATTER_NAME) {
         if (formatter_name === common.FORMATTER_NAME.STANDALONE_VHDL) {
             this.formatter_inst = new Standalone_vhdl();
@@ -41,6 +47,11 @@ export class Formatter {
         }
     }
 
+    /**
+     * Format the code.
+     * @param  {string} code Code to format
+     * @param  {any} opt Formatter options
+     */
     async format_from_code(code: string, opt: any): Promise<common.f_result> {
         return this.formatter_inst.format_from_code(code, opt);
     }

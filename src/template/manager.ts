@@ -24,10 +24,14 @@ import { HDL_LANG } from "../common/general";
 import * as common from "./common";
 import * as parser_lib from "../parser/factory";
 
+/** Template */
 export class Template_manager {
     private language: HDL_LANG = HDL_LANG.VHDL;
     private comment_symbol = "//";
 
+    /**
+     * @param  {HDL_LANG} language Language name
+     */
     constructor(language: HDL_LANG) {
         if (language === HDL_LANG.VHDL) {
             this.comment_symbol = '//';
@@ -38,7 +42,7 @@ export class Template_manager {
         this.language = language;
     }
 
-    get_header(header_file_path: string) {
+    private get_header(header_file_path: string) {
         if (header_file_path === '') {
             return '';
         }
@@ -60,7 +64,7 @@ export class Template_manager {
         }
     }
 
-    get_indent(indent_char: string) {
+    private get_indent(indent_char: string) {
         const indent = ['', '', '', '', '', ''];
 
         let base = '    ';
@@ -73,7 +77,7 @@ export class Template_manager {
         return indent;
     }
 
-    async parse(code: string) {
+    private async parse(code: string) {
         const parser_f = new parser_lib.Factory();
         const parser = await parser_f.get_parser(this.language);
         parser.init();
@@ -84,14 +88,18 @@ export class Template_manager {
         }
         return code_tree;
     }
-
-    async generate(code: string, template_type: common.TEMPLATE_NAME, options: common.t_options) {
+    /**
+     * Generate a template from HDL code
+     * @param  {string} code HDL code
+     * @param  {common.TEMPLATE_NAME} template_type Template type
+     * @param  {common.t_options} options Template options
+     */
+    public async generate(code: string, template_type: common.TEMPLATE_NAME, options: common.t_options) {
         let template = '';
         const code_tree = await this.parse(code);
         if (code_tree === undefined) {
             return template;
         }
-
         // Get header
         const header = this.get_header(options.header_file_path);
         // Indent

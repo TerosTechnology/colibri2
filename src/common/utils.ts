@@ -18,6 +18,11 @@
 
 import { HDL_LANG, HDL_EXTENSIONS } from "./general";
 
+/**
+ * Get the HDL language from a file path.
+ * @param  {string} path File path
+ * @returns HDL_LANG -> HDL language
+ */
 export function get_language(path: string): HDL_LANG {
     const path_lib = require('path');
     const ext_name = path_lib.extname(path);

@@ -1,0 +1,10 @@
+{
+    "entryPoints": [
+        "src/index.ts"
+    ],
+    "out": "out_docs",
+    "plugin": [
+        "typedoc-theme-hierarchy"
+    ],
+    "theme": "hierarchy"
+}
