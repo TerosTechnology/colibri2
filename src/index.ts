@@ -17,5 +17,10 @@
 // You should have received a copy of the GNU General Public License
 // along with colibri2.  If not, see <https://www.gnu.org/licenses/>.
 
-export * as common_general from './common/general';
-export * as hdl_hover from './utils/numbers';
+export * as common from './common/export_t';
+export * as documenter from './documenter/export_t';
+export * as formatter from './formatter/export_t';
+export * as linter from './linter/export_t';
+export * as process from './process/export_t';
+export * as template from './template/export_t';
+export * as utils from './utils/export_t';

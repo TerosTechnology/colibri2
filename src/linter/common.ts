@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with colibri2.  If not, see <https://www.gnu.org/licenses/>.
 
+/** Linter name */
 export enum LINTER_NAME {
     GHDL = "ghdl",
     ICARUS = "icarus",
@@ -28,12 +29,14 @@ export enum LINTER_NAME {
     XVLOG = "xvlog",
 }
 
+/** Linter severity of error */
 export enum LINTER_ERROR_SEVERITY {
     ERROR = "error",
     WARNING = "warning",
     INFO = "information",
 }
 
+/** Individual linter error description */
 export type l_error = {
     severity: LINTER_ERROR_SEVERITY;
     description: string;
@@ -44,6 +47,7 @@ export type l_error = {
     };
 }
 
+/** Linter options */
 export type l_options = {
     path: string;
     argument: string

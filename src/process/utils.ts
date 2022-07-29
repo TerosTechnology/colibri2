@@ -22,6 +22,10 @@ import * as path_lib from 'path';
 import { makeid } from '../utils/common_utils';
 import * as fs from 'fs';
 
+/**
+ * Get the current operative system name
+ * @returns OS
+ */
 export function get_os(): OS {
     const os_i = process.platform;
     if (os_i === "linux") {
@@ -35,6 +39,11 @@ export function get_os(): OS {
     }
 }
 
+/**
+ * Create a temporary file and write the content
+ * @param  {string} content File content to write
+ * @returns string -> Temporal file path
+ */
 export function create_temp_file(content: string): string {
     const temp = require('temp');
     const fs = require('fs');
@@ -48,11 +57,19 @@ export function create_temp_file(content: string): string {
     return temp_file.path;
 }
 
+/**
+ * Get the home directory path
+ * @returns string -> Home directory path
+ */
 export function get_home_directory(): string {
     const user_hom_dir = os_lib.homedir();
     return user_hom_dir;
 }
 
+/**
+ * Get a random folder path in home directory
+ * @returns string -> Random folder path
+ */
 export function get_random_folder_in_home_directory(): string {
     const user_hom_dir = get_home_directory();
     const random_id = makeid(5);
@@ -60,6 +77,11 @@ export function get_random_folder_in_home_directory(): string {
     return random_folder;
 }
 
+/**
+ * Delete directory and subdirectories
+ * @param  {string} directory Directory path
+ * @returns boolean -> true if successful, false if not
+ */
 export function rm_directory(directory: string): boolean {
     try {
         fs.rmdirSync(directory, { recursive: true });

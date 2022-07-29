@@ -16,18 +16,20 @@
 // You should have received a copy of the GNU General Public License
 // along with colibri2.  If not, see <https://www.gnu.org/licenses/>.
 
+/** Proccess type */
 export enum TYPE_PROCESS {
     REMOTE = "remote",
     LOCAL = "local"
 }
 
-
+/** Remote process configuration */
 export type p_remote_configuration = {
     host: string;
     user: string;
     pass: string;
 }
 
+/** Result of process execution */
 export type p_result = {
     command: string;
     stdout: string;
@@ -36,10 +38,12 @@ export type p_result = {
     successful: boolean;
 }
 
+/** Proccess options */
 export type p_options = {
     cwd: string;
 }
 
+/** Operative system name */
 export enum OS {
     LINUX = "linux",
     WINDOWS = "win32",

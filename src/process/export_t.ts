@@ -1,4 +1,4 @@
-// Copyright 2022 
+// Copyright 2022
 // Carlos Alberto Ruiz Naranjo [carlosruiznaranjo@gmail.com]
 //
 // This file is part of colibri2
@@ -16,17 +16,9 @@
 // You should have received a copy of the GNU General Public License
 // along with colibri2.  If not, see <https://www.gnu.org/licenses/>.
 
-/** HDL language */
-export enum HDL_LANG {
-    VHDL = "vhdl",
-    VERILOG = "verilog",
-    SYSTEMVERILOG = "systemverilog",
-    NONE = "none"
-}
+export * as common from './common';
+export * as process from './process';
+export * as python from './python';
+export * as utils from './utils';
 
-/** HDL extensions */
-export const HDL_EXTENSIONS = {
-    VHDL: ['.vhd', '.vho', '.vhdl'],
-    VERILOG: ['.v', '.vh', '.vl'],
-    SYSTEMVERILOG: ['.sv', '.svh']
-};
+

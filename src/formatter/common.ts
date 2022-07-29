@@ -17,6 +17,7 @@
 // You should have received a copy of the GNU General Public License
 // along with colibri2.  If not, see <https://www.gnu.org/licenses/>.
 
+/** Result type for formatter */
 export type f_result = {
     code_formatted: string;
     command: string;
@@ -24,6 +25,7 @@ export type f_result = {
     message: string;
 };
 
+/** Formatter name */
 export enum FORMATTER_NAME {
     STANDALONE_VHDL = "standalone_vhdl",
     ISTYLE = "istyle",
@@ -31,6 +33,7 @@ export enum FORMATTER_NAME {
     VERIBLE = "verible"
 }
 
+/** iStyle formatter style */
 export enum istyle_style {
     ANSI = "ansi",
     KR = "kr",
@@ -38,20 +41,24 @@ export enum istyle_style {
     ONLYINDENT = "onlyindent",
 }
 
+/** iStyle formatter options */
 export type istyle_options = {
     style: istyle_style,
     indent_size: number
 };
 
+/** Letter case style */
 export enum LETTER_CASE {
     LOWERCASE = "lowercase",
     UPPERCASE = "uppercase"
 }
 
+/** Alignement mode */
 export enum ALIGN_MODE {
     LOCAL = "local",
 }
 
+/** Standalone VHDL formatter options */
 export type standalone_vhdl_options = {
     remove_comments: boolean,
     remove_asserts: boolean,
@@ -77,6 +84,7 @@ export type standalone_vhdl_options = {
     end_of_line: "\n"
 };
 
+/** s3sv formatter options */
 export type s3sv_options = {
     python3_path: string,
     use_tabs: boolean,
@@ -85,6 +93,7 @@ export type s3sv_options = {
     one_decl_per_line: boolean
 };
 
+/** Verible formatter options */
 export type verible_options = {
     path: string,
     arguments: string,
